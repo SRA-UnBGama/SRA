@@ -19,10 +19,6 @@ SRA::Application.routes.draw do
 
   post '/users/retrieve_password', to: 'users#retrieve_password', as: 'retrieve_password'
 
-  put '/users/:id/edit_account/update_account', to: 'users#update_account', as: 'update_account'
-
-  get '/users/:id/edit_account', to: 'users#edit_account', as: 'edit_account'
-
   get '/places/set_place/:id', to: 'places#check_active_place', as: 'set_place'
 
   resources :users, :except => [:destroy]
