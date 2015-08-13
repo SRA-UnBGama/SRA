@@ -67,10 +67,13 @@
         <%=  l(atendimento.created_at, :format => '%d/%m/%Y %R')%>
       </td>
       <td id='place'>
-        <%= f.select :place_id, Place.order('name ASC').collect { |p| [p.name, p.id] } %>
+        <%= f.select :place_id, check_atendimento_place(atendimento.place_id).collect { |p| [p.name, p.id] }, {}, readonly: true %>
       </td>
       <td id="type">
-        <%= f.select :type_id, Type.order('name ASC').collect { |t| [t.name, t.id] }, {}, style: "width:30vw" %>
+        <%= f.select :type_id, Type.includes(:places).where("places.id" => atendimento.place_id, "active" => true).order('types.name ASC').collect { |t| [t.name, t.id] }, {}, style: "width:30vw" %>
+         <script>
+          $("#atendimento_type_id").selectize();
+        </script>
       </td>
     </tr>
   </table>
